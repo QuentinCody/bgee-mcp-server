@@ -25,7 +25,7 @@ const BGEE_PREAMBLE = `
 // - Bgee is a wild-type, healthy expression source — for disease expression use other resources.
 `;
 
-export function registerCodeMode(server: McpServer, env: CodeModeEnv): void {
+export async function registerCodeMode(server: McpServer, env: CodeModeEnv): Promise<void> {
 	const sparqlFetch = createBgeeSparqlFetch();
 
 	const executeTool = createSparqlExecuteTool({
@@ -38,5 +38,5 @@ export function registerCodeMode(server: McpServer, env: CodeModeEnv): void {
 		preamble: BGEE_PREAMBLE,
 	});
 
-	executeTool.register(server as unknown as { tool: (...args: unknown[]) => void });
+	await executeTool.register(server as unknown as { tool: (...args: unknown[]) => void });
 }

@@ -22,7 +22,7 @@ export class MyMCP extends McpAgent {
 		const env = this.env as unknown as BgeeEnv;
 		registerQueryData(this.server, env);
 		registerGetSchema(this.server, env);
-		registerCodeMode(this.server, env);
+		await registerCodeMode(this.server, env);
 	}
 }
 
