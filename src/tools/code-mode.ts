@@ -36,6 +36,13 @@ export async function registerCodeMode(server: McpServer, env: CodeModeEnv): Pro
 		doNamespace: env.BGEE_DATA_DO,
 		loader: env.CODE_MODE_LOADER,
 		preamble: BGEE_PREAMBLE,
+		// Verifiable provenance: every bgee_execute result carries a _meta.citation.
+		source: {
+			id: "bgee",
+			name: "Bgee",
+			url: "https://www.bgee.org",
+			license: "CC0 1.0",
+		},
 	});
 
 	await executeTool.register(server as unknown as { tool: (...args: unknown[]) => void });
