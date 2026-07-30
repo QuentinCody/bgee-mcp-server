@@ -1,4 +1,4 @@
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { McpServer } from "@bio-mcp/shared/mcp";
 import { createSparqlExecuteTool } from "@bio-mcp/shared/codemode/sparql-execute-tool";
 import { BGEE_SPARQL_ENDPOINT, createBgeeSparqlFetch } from "../lib/sparql";
 

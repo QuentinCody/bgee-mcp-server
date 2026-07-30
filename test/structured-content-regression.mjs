@@ -47,7 +47,7 @@ assertContains('src/lib/sparql.ts', sparqlAdapter, 'application/sparql-results+j
 
 const indexContent = readFile('src/index.ts');
 assertContains('src/index.ts', indexContent, 'BgeeDataDO', 'index.ts exports BgeeDataDO');
-assertContains('src/index.ts', indexContent, 'McpAgent', 'index.ts uses McpAgent');
+assertContains('src/index.ts', indexContent, 'StatelessMcpWorker', 'index.ts uses StatelessMcpWorker');
 assertContains('src/index.ts', indexContent, 'registerCodeMode', 'index.ts registers Code Mode SPARQL execute tool');
 
 const doContent = readFile('src/do.ts');
