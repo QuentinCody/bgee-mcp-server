@@ -37,6 +37,13 @@ export default {
 			return buildHealthResponse("bgee");
 		}
 
+		if (url.pathname === "/readyz") {
+			// Deep check: builds the MCP server the way a real request does, so a
+			// factory that throws is a 503 here instead of a green /health over a
+			// server that 500s every MCP call.
+			return MyMCP.readiness(env, "bgee");
+		}
+
 		if (url.pathname === "/mcp") {
 			return MyMCP.serve("/mcp").fetch(request, env, ctx);
 		}
