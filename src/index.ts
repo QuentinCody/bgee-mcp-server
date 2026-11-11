@@ -1,10 +1,10 @@
 import { buildHealthResponse, configureCitationSigning } from "@bio-mcp/shared";
-import { StatelessMcpWorker } from "@bio-mcp/shared/mcp";
-import { McpServer } from "@bio-mcp/shared/mcp";
-import { registerQueryData } from "./tools/query-data";
-import { registerGetSchema } from "./tools/get-schema";
-import { registerCodeMode } from "./tools/code-mode";
+import { McpServer, StatelessMcpWorker } from "@bio-mcp/shared/mcp";
 import { BgeeDataDO } from "./do";
+import { registerCodeMode } from "./tools/code-mode";
+import { registerGetSchema } from "./tools/get-schema";
+import { registerQueryData } from "./tools/query-data";
+import { registerBulkFiles } from "./tools/bulk-files";
 
 export { BgeeDataDO };
 
@@ -25,6 +25,7 @@ export class MyMCP extends StatelessMcpWorker {
 		const env = this.env as unknown as BgeeEnv;
 		registerQueryData(this.server, env);
 		registerGetSchema(this.server, env);
+		registerBulkFiles(this.server, env);
 		await registerCodeMode(this.server, env);
 	}
 }

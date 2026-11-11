@@ -42,13 +42,17 @@ assertContains('src/tools/code-mode.ts', codeMode, 'BGEE_SPARQL_ENDPOINT', 'code
 assertContains('src/tools/code-mode.ts', codeMode, 'createBgeeSparqlFetch', 'code-mode.ts uses Bgee SPARQL adapter');
 
 const sparqlAdapter = readFile('src/lib/sparql.ts');
-assertContains('src/lib/sparql.ts', sparqlAdapter, 'https://www.bgee.org/sparql/', 'sparql.ts hardcodes Bgee endpoint');
+assertContains('src/lib/query-routing.ts', readFile('src/lib/query-routing.ts'), 'https://www.bgee.org/sparql/', 'routing uses the fixed Bgee endpoint');
 assertContains('src/lib/sparql.ts', sparqlAdapter, 'application/sparql-results+json', 'sparql.ts requests SPARQL JSON results');
 
 const indexContent = readFile('src/index.ts');
 assertContains('src/index.ts', indexContent, 'BgeeDataDO', 'index.ts exports BgeeDataDO');
 assertContains('src/index.ts', indexContent, 'StatelessMcpWorker', 'index.ts uses StatelessMcpWorker');
 assertContains('src/index.ts', indexContent, 'registerCodeMode', 'index.ts registers Code Mode SPARQL execute tool');
+assertContains('src/index.ts', indexContent, 'registerBulkFiles(this.server, env)', 'index.ts registers expression-file discovery');
+const bulk = readFile('src/tools/bulk-files.ts');
+assertContains('src/tools/bulk-files.ts', bulk, '["bgee_bulk_files", "mcp_bgee_bulk_files"]', 'bulk discovery registers both aliases');
+assertContains('src/tools/bulk-files.ts', bulk, 'bgeeResponse', 'bulk discovery applies complete-envelope staging and citations');
 
 const doContent = readFile('src/do.ts');
 assertContains('src/do.ts', doContent, 'extends RestStagingDO', 'do.ts extends RestStagingDO');
