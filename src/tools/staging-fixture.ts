@@ -53,9 +53,10 @@ export async function fixture() {
 }
 
 /** Read the actual lossless payload via bounded SQL calls, including chunk storage. */
-export async function recover(f: Awaited<ReturnType<typeof fixture>>, id: string, prefix: string) {
+export async function recover(f: Awaited<ReturnType<typeof fixture>>, id: string, prefix: string,
+  call = (name: string, args: Record<string, unknown>) => f.tools[name].handler(args, {})) {
   const rows = async (sql: string) => {
-    const output = await f.tools[`${prefix}bgee_query_data`].handler({ data_access_id: id, sql }, {});
+    const output = await call(`${prefix}bgee_query_data`, { data_access_id: id, sql });
     expect(output.isError, JSON.stringify(output)).not.toBe(true);
     expect(output.structuredContent.staged).not.toBe(true);
     expect(new TextEncoder().encode(JSON.stringify(output)).byteLength).toBeLessThan(30720);

@@ -32,7 +32,7 @@ it.each([0, 50000])("retains pinned species HTML and complete manifests through 
         const result = await rpc(f.env, prefix + "bgee_bulk_files", args);
         expect(result.isError).not.toBe(true);
         expect(Boolean(result.structuredContent._staging)).toBe(padding > 0);
-        const full = result.structuredContent._staging ? await recover(f, result.structuredContent.data_access_id, prefix) : result;
+        const full = result.structuredContent._staging ? await recover(f, result.structuredContent.data_access_id, prefix, (name, args) => rpc(f.env, name, args)) : result;
         expect(full.structuredContent.data.source).toMatchObject({ html, html_sha256: hash(html), observed_release: null, genome_annotation: null });
         const checked = await verifyCitationEnvelope({ citation: full.structuredContent._meta.citation, structuredContent: full.structuredContent, toolArguments: args });
         expect(checked.verification).toMatchObject({ query: "verified", result: "verified" });
